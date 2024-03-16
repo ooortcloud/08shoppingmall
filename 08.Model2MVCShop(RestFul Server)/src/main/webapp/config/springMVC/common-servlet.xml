@@ -41,7 +41,15 @@
 			<mvc:mapping path="/user/**"/>
 			<bean class="com.model2.mvc.common.web.LogonCheckInterceptor" />
    		</mvc:interceptor>
-
+   		
+   		<!-- 하고 싶었는데, 현재 client는 cookie를 저장할 공간이 없어서 cookie 유지가 불가능함... 이는 session 정보 유지도 불가능함을 의미. -->
+   		<!-- 일반 App 유저에게도 login 유효성 검사를 하고자 한다. (다중 path 등록이 안됨...) -->
+   		<!-- 
+   		<mvc:interceptor>
+			<mvc:mapping path="/rest/user/**"/>   
+			<bean class="com.model2.mvc.common.web.LogonCheckInterceptor" />
+   		</mvc:interceptor>
+ 		-->
    	</mvc:interceptors>
 
 

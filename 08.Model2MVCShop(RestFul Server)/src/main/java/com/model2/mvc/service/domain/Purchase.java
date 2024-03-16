@@ -20,16 +20,6 @@ public class Purchase {
 	public Purchase(){
 	}
 	
-	public Purchase(PurchaseOnlyString purchase){
-		this.divyAddr = purchase.getDivyAddr();
-		this.divyDate = purchase.getDivyDate();
-		this.divyRequest = purchase.getDivyRequest();
-		this.paymentOption = purchase.getPaymentOption();
-		this.receiverName = purchase.getReceiverName();
-		this.receiverPhone = purchase.getReceiverPhone();
-		this.tranCode = purchase.getTranCode();
-	}
-	
 	public User getBuyer() {
 		return buyer;
 	}

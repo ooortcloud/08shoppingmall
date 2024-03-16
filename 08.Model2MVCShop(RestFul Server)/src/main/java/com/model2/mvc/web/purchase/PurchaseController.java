@@ -23,7 +23,6 @@ import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.CommonUtil;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
-import com.model2.mvc.service.domain.PurchaseOnlyString;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.purchase.PurchaseService;
 

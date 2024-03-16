@@ -10,7 +10,7 @@ import com.model2.mvc.service.domain.User;
 public interface UserService {
 	
 	// 회원가입
-	public void addUser(User user) throws Exception;
+	public int addUser(User user) throws Exception;
 	
 	// 내정보확인 / 로그인
 	public User getUser(String userId) throws Exception;
@@ -19,7 +19,7 @@ public interface UserService {
 	public Map<String , Object> getUserList(Search search) throws Exception;
 	
 	// 회원정보수정
-	public void updateUser(User user) throws Exception;
+	public int updateUser(User user) throws Exception;
 	
 	// 회원 ID 중복 확인
 	public boolean checkDuplication(String userId) throws Exception;

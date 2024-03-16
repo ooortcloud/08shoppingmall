@@ -33,16 +33,16 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	///Method
-	public void addUser(User user) throws Exception {
-		sqlSession.insert("UserMapper.addUser", user);
+	public int addUser(User user) throws Exception {
+		return sqlSession.insert("UserMapper.addUser", user);
 	}
 
 	public User getUser(String userId) throws Exception {
 		return sqlSession.selectOne("UserMapper.getUser", userId);
 	}
 	
-	public void updateUser(User user) throws Exception {
-		sqlSession.update("UserMapper.updateUser", user);
+	public int updateUser(User user) throws Exception {
+		return sqlSession.update("UserMapper.updateUser", user);
 	}
 
 	public List<User> getUserList(Search search) throws Exception {

@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	///Method
-	public void addUser(User user) throws Exception {
-		userDao.addUser(user);
+	public int addUser(User user) throws Exception {
+		return userDao.addUser(user);
 	}
 
 	public User getUser(String userId) throws Exception {
@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService{
 		return map;
 	}
 
-	public void updateUser(User user) throws Exception {
-		userDao.updateUser(user);
+	public int updateUser(User user) throws Exception {
+		return userDao.updateUser(user);
 	}
 
 	public boolean checkDuplication(String userId) throws Exception {
