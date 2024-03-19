@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.model2.mvc.common.Message;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
@@ -57,14 +58,15 @@ public class UserRestController {
 	 *  @RequestBody :: HTTP request msg의 body 부분을 parsing
 	 */
 	@PostMapping("/json/addUser")
-	public String addUser(@RequestBody User user) throws Exception {
+	public Message addUser(@RequestBody User user) throws Exception {
+		
 		int result = userService.addUser(user);
 		
 		// 그냥 String으로 return하면 날라가긴 하는데, 이것의 content-type을 모르겠음.
 		if(result == 1) 
-			return "성공적으로 회원가입을 완료하였습니다!";
+			return new Message("성공적으로 회원가입을 완료하였습니다!");
 		else
-			return "회원가입 실패...";
+			return new Message("회원가입 실패...");
 	}
 	
 	@RequestMapping( value="json/getUser/{userId}", method=RequestMethod.GET )
@@ -96,7 +98,7 @@ public class UserRestController {
 		jsonMap.put("list", map.get("list"));
 		jsonMap.put("resultPage", resultPage);
 		jsonMap.put("search", search);
-		jsonMap.put("title", "user");
+		// jsonMap.put("title", "user");
 		
 		return jsonMap;
 	}
@@ -116,20 +118,20 @@ public class UserRestController {
 		jsonMap.put("list", map.get("list"));
 		jsonMap.put("resultPage", resultPage);
 		jsonMap.put("search", search);
-		jsonMap.put("title", "user");
+		// jsonMap.put("title", "user");
 		
 		return jsonMap;
 	}
 	
 	@PostMapping("/json/updateUser")
-	public String updateUser(@RequestBody User user, HttpSession session) throws Exception {
+	public Message updateUser(@RequestBody User user, HttpSession session) throws Exception {
 		//Business Logic
 		int result = userService.updateUser(user);
-		String returnMsg = null;
+		Message returnMsg = new Message();
 		if(result == 1)
-			returnMsg = "성공적으로 회원 정보가 변경되었습니다!";
+			returnMsg.setMsg("성공적으로 회원 정보가 변경되었습니다!");
 		else
-			returnMsg = "회원 정보 변경 실패...";
+			returnMsg.setMsg("회원 정보 변경 실패...");
 		
 		// 현재 session이 존재하지 않으므로 조회 시 NullPointerException이 뜬다...
 //		String sessionId=((User)session.getAttribute("user")).getUserId();
@@ -181,8 +183,9 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) throws Exception {
+	public Message logout(HttpSession session) throws Exception {
 		session.invalidate();
-		return "logout에 성공하였습니다.";
+		
+		return new Message("logout에 성공하였습니다.");
 	}
 }

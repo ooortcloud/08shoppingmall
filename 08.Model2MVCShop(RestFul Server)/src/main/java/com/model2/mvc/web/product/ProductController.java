@@ -42,6 +42,7 @@ public class ProductController {
 		System.out.println("각종 Controller Bean load...");
 	}
 	
+	// @ModelAttribute는 HttpServletRequest의 getParameter()를 활용하여 auto binding을 해주는 annotation이다.
 	@PostMapping("/addProduct")
 	public String addProduct(@ModelAttribute Product  product, Model model) throws Exception {
 		String[] temp = product.getManuDate().split("-");
@@ -164,7 +165,7 @@ public class ProductController {
 		if( (search.getCurrentPage() > myPage.getPageUnit() ) && !CommonUtil.null2str(search.getSearchKeyword()).isEmpty() )
 			myPage.setBeginUnitPage(1);
 		
-		model.addAttribute("map", map);
+		model.addAttribute("list", map.get("list") );
 		model.addAttribute("resultPage", myPage);
 		model.addAttribute("menu", menu);
 		model.addAttribute("title", "product");
