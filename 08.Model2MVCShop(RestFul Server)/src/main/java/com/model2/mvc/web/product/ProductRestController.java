@@ -140,5 +140,12 @@ public class ProductRestController {
 		return msg;
 	}
 	
-	// product String deleteProduct()
+	@PostMapping("/json/deleteProduct")
+	public Message deleteProduct(@RequestParam Integer prodNo) throws Exception {
+		
+		if(service.deleteProduct(prodNo) == 1)
+			return new Message("상품 제거에 성공하였습니다!");
+		else
+			return new Message("상품 제거 실패...");
+	}
 }

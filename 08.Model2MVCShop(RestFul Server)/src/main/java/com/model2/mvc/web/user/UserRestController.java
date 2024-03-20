@@ -27,6 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.model2.mvc.common.Message;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.common.util.CommonUtil;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
 
@@ -54,7 +55,7 @@ public class UserRestController {
 	
 	// 일반 App에게는 UI 전달이 불필요함. 이미 UI를 갖고 있으니까.
 	/*
-	 *  @ModelAttribute :: HTTP request msg의 header 부분의 query parameter를 parsing
+	 *  @ModelAttribute :: HTTP request msg의 'query parameter'를 parsing (header body 무관)
 	 *  @RequestBody :: HTTP request msg의 body 부분을 parsing
 	 */
 	@PostMapping("/json/addUser")
@@ -106,6 +107,12 @@ public class UserRestController {
 	@PostMapping("/json/listUser")
 	public Map<String, Object> postListUser(@RequestBody Search search) throws Exception {
 
+		// 최초 접근 시 Query Parameter인 currentPage값이 null일 때 1페이지에서 시작하도록 설정
+		if(search.getCurrentPage() == 0)
+			search.setCurrentPage(1);
+		// 1페이지 이후에서 검색 시 1페이지에서 재시작하도록 설정
+		else if( !CommonUtil.null2str(search.getSearchKeyword()).isEmpty() && search.getCurrentPage() != 1 )
+			search.setCurrentPage(1);
 		search.setPageSize(pageSize);
 		
 		// Business logic 수행
@@ -113,6 +120,9 @@ public class UserRestController {
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
+		//  1페이지 이후에서 검색 시 1페이지에서 재시작하도록 설정
+		if( (search.getCurrentPage() > resultPage.getPageUnit() ) && !CommonUtil.null2str(search.getSearchKeyword()).isEmpty() )
+			resultPage.setBeginUnitPage(1);
 		
 		Map<String, Object> jsonMap = new HashMap<>();
 		jsonMap.put("list", map.get("list"));

@@ -53,8 +53,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/addProduct")
-	public String addProduct(@RequestParam Integer prodNo, Model model) {
-		model.addAttribute("prodNo", prodNo);
+	public String addProduct(Model model) {
 		return "forward:/product/addProductView.jsp";
 	}
 	
@@ -189,7 +188,9 @@ public class ProductController {
 		return "forward:/product/updateProduct.jsp";
 	}
 	
-	@GetMapping("/deleteProduct")
+	// 이 부분 순수 controller 단에서는 ajax로 구현할 예정...
+	// 절대 get으로 delete 처리를 해서는 안된다...
+	@PostMapping("/deleteProduct")
 	public String deleteProduct(@RequestParam Integer prodNo) throws Exception {
 		service.deleteProduct(prodNo);
 		return "forward:/product/listProduct?menu=manage";

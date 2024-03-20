@@ -151,8 +151,8 @@
 	<c:set var="no" value="${resultPage.totalCount - resultPage.pageSize * (resultPage.currentPage -1 ) }" />
 	
 		<%-- JSTL에서 index 관리 Collection을 적용한 반복문 사용하기 --%>
-		<c:forEach var="product" items="${requestScope.map.list }">
-			<tr class="ct_list_pop">
+		<c:forEach var="product" items="${requestScope.list }">
+			<tr class="ct_list_pop">  
 				<td align="center">${no }</td>
 				<c:set var="no" value="${ no-1 }" />
 				<td></td>
